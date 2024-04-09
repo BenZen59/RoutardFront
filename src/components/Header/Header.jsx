@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Menubar } from 'primereact/menubar';
 import RoutardService from '../../services/RoutardService';
+import PaysList from '../PaysList/PaysList';
 
 export default function Header() {
   const [continents, setContinents] = useState([]);
+  const [selectedContinent, setSelectedContinent] = useState(null);
 
   useEffect(() => {
     RoutardService.getContinentname()
@@ -21,14 +23,17 @@ export default function Header() {
 
   function constructMenuModel(continents) {
     return continents.map((continent) => ({
-      label: continent.nomContinent, // Supposons que le nom du continent est stocké dans une propriété 'nomContinent'
-      // Vous pouvez ajouter d'autres propriétés comme 'url' si nécessaire pour rediriger vers une page spécifique
+      label: continent.nomContinent,
+      command: () => setSelectedContinent(continent.codeContinent),
     }));
   }
 
   return (
     <>
       <Menubar model={constructMenuModel(continents)} />
+      {selectedContinent && (
+        <PaysList key={selectedContinent} codeContinent={selectedContinent} />
+      )}
     </>
   );
 }
