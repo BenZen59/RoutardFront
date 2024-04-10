@@ -6,6 +6,7 @@ import RoutardService from '../../services/RoutardService';
 
 export default function DetailsPays() {
   const [detailsPays, setDetailsPays] = useState([]);
+  const [informations, setInformations] = useState([]);
   const { codeIso31661 } = useParams();
   console.log(detailsPays, codeIso31661);
 
@@ -23,8 +24,30 @@ export default function DetailsPays() {
       });
   }, []);
 
+  useEffect(() => {
+    RoutardService.getInformationByPays(codeIso31661)
+      .then(({ data }) => {
+        setInformations(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(
+          'Erreur lors de la récupération des informations du pays :',
+          error
+        );
+      });
+  }, []);
+
+  console.log(informations);
+
   return (
     <>
+      <h1>
+        {informations && informations.length > 0
+          ? informations[0].info
+          : 'Aucune information disponible'}
+      </h1>
+
       <div className='text-center mt-20'>
         <DataTable value={[detailsPays]}>
           <Column field='codeIso31661' header='Code Iso 3166-1'></Column>
