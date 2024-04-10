@@ -45,11 +45,15 @@ export default function DetailsPays() {
           <Column
             header='Langues'
             body={(rowData) => {
-              return rowData.langues
-                .map((langue) => (
-                  <span key={langue.isoLangue}>{langue.nomLangue}</span>
-                ))
-                .reduce((prev, curr) => [prev, ', ', curr]);
+              return rowData.langues && rowData.langues.length > 0 ? (
+                rowData.langues
+                  .map((langue) => (
+                    <span key={langue.isoLangue}>{langue.nomLangue}</span>
+                  ))
+                  .reduce((prev, curr) => [prev, ', ', curr])
+              ) : (
+                <span>Aucune langue spécifiée</span>
+              );
             }}
           ></Column>
         </DataTable>
