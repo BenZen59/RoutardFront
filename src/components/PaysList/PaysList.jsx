@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
+import { Link } from 'react-router-dom';
 import RoutardService from '../../services/RoutardService';
 
 export default function PaysList({ codeContinent }) {
@@ -27,10 +28,13 @@ export default function PaysList({ codeContinent }) {
     <>
       <div>
         {pays.map((event) => (
-          <Button
-            label={truncateText(event.nomPays, 20)}
-            className='p-button-raised w-36 h-12 bg-gray-700 text-white p-2 m-2'
-          />
+          <Link to={`/detailspays/${event.codeIso31661}`}>
+            <Button
+              key={event.codeIso31661}
+              label={truncateText(event.nomPays, 20)}
+              className='p-button-raised w-36 h-12 bg-gray-700 text-white p-2 m-2'
+            />
+          </Link>
         ))}
       </div>
     </>

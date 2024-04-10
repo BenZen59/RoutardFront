@@ -30,10 +30,15 @@ export default function Header() {
 
   return (
     <>
-      <Menubar model={constructMenuModel(continents)} />
-      {selectedContinent && (
-        <PaysList key={selectedContinent} codeContinent={selectedContinent} />
-      )}
+      <Menubar
+        model={constructMenuModel(continents)}
+        className='border-b-2 border-black border-solid'
+      />
+      <div className=' flex justify-center'>
+        {selectedContinent && (
+          <PaysList key={selectedContinent} codeContinent={selectedContinent} />
+        )}
+      </div>
     </>
   );
 }
