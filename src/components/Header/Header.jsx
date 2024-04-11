@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menubar } from 'primereact/menubar';
 import RoutardService from '../../services/RoutardService';
 import PaysList from '../PaysList/PaysList';
+import Search from '../Search/Search';
 
 export default function Header() {
   const [continents, setContinents] = useState([]);
@@ -33,6 +34,7 @@ export default function Header() {
       <Menubar
         model={constructMenuModel(continents)}
         className='border-b-2 border-black border-solid'
+        end={<Search className='mr-[100px]' />}
       />
       <div className=' flex justify-center'>
         {selectedContinent && (

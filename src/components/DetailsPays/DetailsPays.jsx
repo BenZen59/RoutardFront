@@ -42,11 +42,14 @@ export default function DetailsPays() {
 
   return (
     <>
-      <h1>
-        {informations && informations.length > 0
-          ? informations[0].info
-          : 'Aucune information disponible'}
-      </h1>
+      <div className='m-3 p-3 rounded-md text-white bg-gray-700 w-[500px]'>
+        <h1 className='text-2xl'>Informations</h1>
+        <p>
+          {informations && informations.length > 0
+            ? informations[0].info
+            : 'Aucune information disponible'}
+        </p>
+      </div>
 
       <div className='text-center mt-20'>
         <DataTable value={[detailsPays]}>
