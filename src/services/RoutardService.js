@@ -9,6 +9,10 @@ const RoutardService = {
     return axios.get(`/api/continents/${continentCode}/pays`);
   },
 
+  getPays: () => {
+    return axios.get('/api/pays');
+  },
+
   getPaysByCodeIso: (codeIso31661) => {
     return axios.get(`/api/pays/${codeIso31661}`);
   },
