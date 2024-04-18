@@ -3,17 +3,20 @@ import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import RoutardService from '../../services/RoutardService';
 
-export default function PaysList({ codeContinent }) {
-  const [pays, setPays] = useState([]);
+export default function SubdivisionsList({ codeContinent }) {
+  const [subdivisions, setSubdivisions] = useState([]);
 
   useEffect(() => {
-    RoutardService.getPaysByCodeContinent(codeContinent)
+    RoutardService.get
       .then((response) => {
-        setPays(response.data);
+        setSubdivisions(response.data);
         console.log(response.data);
       })
       .catch((error) => {
-        console.error('Erreur lors de la récupération des pays :', error);
+        console.error(
+          'Erreur lors de la récupération des subdivisions :',
+          error
+        );
       });
   }, []);
 
@@ -27,8 +30,8 @@ export default function PaysList({ codeContinent }) {
   return (
     <>
       <div>
-        {pays.map((event) => (
-          <Link to={`/detailspays/${event.codeIso31661}`}>
+        {subdivisions.map((event) => (
+          <Link to={`/detailssubdivisions/${event.idSubdivisions}`}>
             <Button
               key={event.codeIso31661}
               label={truncateText(event.nomPays, 20)}

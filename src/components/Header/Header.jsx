@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Menubar } from 'primereact/menubar';
 import RoutardService from '../../services/RoutardService';
 import PaysList from '../PaysList/PaysList';
 import Search from '../Search/Search';
@@ -7,6 +6,7 @@ import Search from '../Search/Search';
 export default function Header() {
   const [continents, setContinents] = useState([]);
   const [selectedContinent, setSelectedContinent] = useState(null);
+  const [handleList, setHandleList] = useState(false);
 
   useEffect(() => {
     RoutardService.getContinentname()
@@ -22,25 +22,45 @@ export default function Header() {
       });
   }, []);
 
-  function constructMenuModel(continents) {
-    return continents.map((continent) => ({
-      label: continent.nomContinent,
-      command: () => setSelectedContinent(continent.codeContinent),
-    }));
+  function handleContinentSelect(continentCode) {
+    setSelectedContinent(continentCode);
+    setHandleList(true);
   }
 
   return (
     <>
-      <Menubar
-        model={constructMenuModel(continents)}
-        className='border-b-2 border-black border-solid'
-        end={<Search className='mr-[100px]' />}
-      />
-      <div className=' flex justify-center'>
-        {selectedContinent && (
-          <PaysList key={selectedContinent} codeContinent={selectedContinent} />
-        )}
-      </div>
+      <header className='border-b-2 border-black border-solid p-3'>
+        <div className='flex justify-between items-center'>
+          <div>
+            {continents.map((continent) => (
+              <button
+                key={continent.codeContinent}
+                className={`p-button ${
+                  selectedContinent === continent.codeContinent
+                    ? 'bg-gray-700 rounded-md text-white ml-6 p-[10px]'
+                    : 'ml-6 p-[10px]'
+                }`}
+                onClick={() => handleContinentSelect(continent.codeContinent)}
+              >
+                {continent.nomContinent}
+              </button>
+            ))}
+          </div>
+          <div>
+            <Search />
+          </div>
+        </div>
+      </header>
+      {handleList && (
+        <div className='flex justify-center ml-16 mt-4 pt-3 pb-3 pl-[45px] border-gray-700 rounded-md border-solid border-2 w-[900px] h-auto'>
+          {selectedContinent && (
+            <PaysList
+              key={selectedContinent}
+              codeContinent={selectedContinent}
+            />
+          )}
+        </div>
+      )}
     </>
   );
 }
