@@ -4,6 +4,7 @@ import { DataTable } from 'primereact/datatable';
 import { Card } from 'primereact/card';
 import { Column } from 'primereact/column';
 import RoutardService from '../../services/RoutardService';
+import SubdivisionsList from '../SubdivisionsList/SubdivisionsList';
 
 export default function DetailsPays() {
   const [detailsPays, setDetailsPays] = useState([]);
@@ -94,6 +95,11 @@ export default function DetailsPays() {
             ></Column>
           </DataTable>
         </p>
+      </Card>
+      <Card title='Subdivisions List'>
+        <div className='flex justify-center mb-4 pt-3 pb-3 pl-[45px] border-gray-700 rounded-md border-solid border-2 w-[900px] h-auto'>
+          <SubdivisionsList key={codeIso31661} codeIso31661={codeIso31661} />
+        </div>
       </Card>
     </>
   );
