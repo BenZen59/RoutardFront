@@ -20,6 +20,10 @@ const RoutardService = {
   getInformationByPays: (codeIso31661) => {
     return axios.get(`/api/pays/${codeIso31661}/informations`);
   },
+
+  getSubdivisionsByPays: (codeIso31661) => {
+    return axios.get(`/api/pays/${codeIso31661}/subdivisions`);
+  },
 };
 
 export default RoutardService;
