@@ -26,11 +26,7 @@ export default function Header() {
   function handleContinentSelect(continentCode) {
     setSelectedContinent(continentCode);
     setHandleList(true);
-    setShowSubMenu(false); // Affiche le sous-menu lors de la sélection d'un continent
-  }
-
-  function toggleSubMenu() {
-    setShowSubMenu(!showSubMenu); // Bascule l'état pour afficher ou masquer le sous-menu
+    setShowSubMenu(true); // Affiche le sous-menu lors de la sélection d'un continent
   }
 
   return (
@@ -38,31 +34,21 @@ export default function Header() {
       <header className='border-b-2 border-black border-solid p-3'>
         <div className='flex justify-between items-center'>
           <div>
-            <button className='p-button ml-6 p-[10px]' onClick={toggleSubMenu}>
-              Continents
-            </button>
-            {/* Sous-menu des continents */}
-            {showSubMenu && (
-              <div className='absolute mt-6 bg-white rounded-md shadow-lg border-gray-700 border-2 border-solid z-10'>
-                {continents.map((continent) => (
-                  <button
-                    key={continent.codeContinent}
-                    className={`block w-full py-2 px-4 text-left ${
-                      selectedContinent === continent.codeContinent
-                        ? 'bg-gray-700 text-white'
-                        : 'text-gray-900'
-                    }`}
-                    onClick={() =>
-                      handleContinentSelect(continent.codeContinent)
-                    }
-                  >
-                    {continent.nomContinent}
-                  </button>
-                ))}
-              </div>
-            )}
+            {continents.map((continent) => (
+              <button
+                key={continent.codeContinent}
+                className={`p-button ${
+                  selectedContinent === continent.codeContinent
+                    ? 'bg-gray-700 rounded-md text-white ml-6 p-[10px]'
+                    : 'ml-6 p-[10px]'
+                }`}
+                onClick={() => handleContinentSelect(continent.codeContinent)}
+              >
+                {continent.nomContinent}
+              </button>
+            ))}
             <button className='rounded-md ml-6 p-[10px]'>
-              Points of interest
+              Point of interest
             </button>
           </div>
           <div>
@@ -71,7 +57,7 @@ export default function Header() {
         </div>
       </header>
       {handleList && (
-        <div className='flex justify-center ml-44 mt-2 pt-3 pb-3 pl-[45px] border-gray-700 rounded-md border-solid border-2 w-[900px] h-auto'>
+        <div className='flex justify-center ml-16 mt-4 pt-3 pb-3 pl-[45px] border-gray-700 rounded-md border-solid border-2 w-[900px] h-auto'>
           {selectedContinent && (
             <PaysList
               key={selectedContinent}

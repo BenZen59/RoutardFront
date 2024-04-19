@@ -28,6 +28,12 @@ const RoutardService = {
   getSubdivisionById: (idSubdivision) => {
     return axios.get(`/api/subdivisions/${idSubdivision}`);
   },
+
+  getPIbySubdivision: (idSubdivision) => {
+    return axios.get(
+      `/api/pointsinterets/search?idSubdivision=${idSubdivision}`
+    );
+  },
 };
 
 export default RoutardService;

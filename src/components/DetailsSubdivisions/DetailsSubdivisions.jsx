@@ -7,6 +7,7 @@ import RoutardService from '../../services/RoutardService';
 
 export default function DetailsSubdivisions() {
   const [detailsSubdivisions, setDetailsSubdivisions] = useState([]);
+  const [pointsInterets, setPointsInterets] = useState([]);
   const { idSubdivision } = useParams();
 
   useEffect(() => {
@@ -20,6 +21,17 @@ export default function DetailsSubdivisions() {
           'Erreur lors de la récupération du détails de la subdivision :',
           error
         );
+      });
+  }, []);
+
+  useEffect(() => {
+    RoutardService.getPIbySubdivision(idSubdivision)
+      .then(({ data }) => {
+        setPointsInterets(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des PI :', error);
       });
   }, []);
 
@@ -43,6 +55,18 @@ export default function DetailsSubdivisions() {
           </DataTable>
         </p>
       </Card>
+      <h1 className='text-[24px] m-3'>
+        Points of interest in this subdivision :
+      </h1>
+      {pointsInterets.length === 0 ? (
+        <Card>No points of interest in this subdivision</Card>
+      ) : (
+        pointsInterets.map((pi) => (
+          <Card title={pi.nomPointInteret}>
+            Type of point of interest : {pi.categories[0].nomCategorie}
+          </Card>
+        ))
+      )}
     </>
   );
 }
