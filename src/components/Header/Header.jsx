@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import RoutardService from '../../services/RoutardService';
 import PaysList from '../PaysList/PaysList';
 import Search from '../Search/Search';
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { FaMapLocationDot } from 'react-icons/fa6';
+import { AiOutlineExclamationCircle } from 'react-icons/ai';
 
 export default function Header() {
   const [continents, setContinents] = useState([]);
@@ -39,7 +43,8 @@ export default function Header() {
         <div className='flex justify-between items-center'>
           <div>
             <button className='p-button ml-6 p-[10px]' onClick={toggleSubMenu}>
-              Continents
+              <FaMapLocationDot className='mr-1 text-[24px]' />
+              Continents <IoMdArrowDropdown className='ml-1 text-[15px]' />
             </button>
             {/* Sous-menu des continents */}
             {showSubMenu && (
@@ -61,9 +66,12 @@ export default function Header() {
                 ))}
               </div>
             )}
-            <button className='rounded-md ml-6 p-[10px]'>
-              Points of interest
-            </button>
+            <Link to={`/pointsinterets`}>
+              <button className='p-button rounded-md ml-6 p-[10px]'>
+                <AiOutlineExclamationCircle className='mr-1 text-[24px]' />
+                Points of interest
+              </button>{' '}
+            </Link>
           </div>
           <div>
             <Search />

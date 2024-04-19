@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home/Home';
 import DetailsPays from './components/DetailsPays/DetailsPays';
 import DetailsSubdivisions from './components/DetailsSubdivisions/DetailsSubdivisions';
+import PointsInteretsList from './components/PointsInteretsList/PointsInteretsList';
 import './App.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -17,6 +18,7 @@ function App() {
             path='/detailssubdivisions/:idSubdivision'
             element={<DetailsSubdivisions />}
           />
+          <Route path='/pointsinterets' element={<PointsInteretsList />} />
         </Routes>
       </BrowserRouter>
     </div>
